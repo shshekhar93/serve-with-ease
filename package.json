@@ -1,0 +1,28 @@
+{
+  "name": "serve-with-ease",
+  "version": "1.0.0",
+  "description": "Serve with ease",
+  "keywords": [
+    "serve",
+    "static",
+    "files"
+  ],
+  "homepage": "https://github.com/shshekhar93/serve-with-ease#readme",
+  "bugs": {
+    "url": "https://github.com/shshekhar93/serve-with-ease/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shshekhar93/serve-with-ease.git"
+  },
+  "license": "MIT",
+  "author": "Shashi Shekhar <shshekhar93@gmail.com>",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
