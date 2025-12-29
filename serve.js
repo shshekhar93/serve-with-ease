@@ -7,12 +7,16 @@ const { getMimeType } = require('./mime-types.js');
 
 const pfstat = promisify(fstat);
 
-const NotFoundMessage = Buffer.from("Not found");
 const SupportedMethods = ['GET', 'OPTIONS'];
 const EISDIR = new Error('EISDIR');
 
 const template = readFileSync(require.resolve('./template.html'), 'utf-8');
 
+/**
+ * 
+ * @param {import('./options.js').Options} options 
+ * @returns 
+ */
 function createHandler({
   basePath,
 }) {
