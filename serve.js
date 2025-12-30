@@ -23,16 +23,12 @@ function createHandler(options) {
   const { basePath } = options;
   return async (req, res) => {
     console.log(`${req.method} ${req.url}`);
-    if (!SupportedMethods.includes(req.method)) {
-      res.writeHead(405);
-      res.end('Method Not Supported')
-      return;
-    }
-    
-    // Disallow all relative paths in url
-    if (req.url.includes('./')) {
-      res.writeHead(404, 'Not Found');
-      res.end("Not Found");
+
+    if (!validateRequest(req, options)) {
+      res.writeHead(400, 'Bad Request');
+      res.end(template.
+        replaceAll('${title}', 'Bad Request').
+        replaceAll('${message}', 'The request could not be processed due to bad syntax or invalid parameters.'));
       return;
     }
 
@@ -150,6 +146,37 @@ function getSiteIdentifierFromRequest(req, options) {
   }
 
   return '';
+}
+
+function validateRequest(req, options) {
+  // Ensure that the request doesn't include relative paths.
+  const url = req.url || '/';
+  if (url.includes('./')) {
+    console.error('Rejected request with relative path:');
+    return false;
+  }
+
+  // Ensure the request method is supported.
+  if (!SupportedMethods.includes(req.method)) {
+    console.error(`Rejected request with unsupported method: ${req.method}`);
+    return false;
+  }
+
+  // Ensure the request came from configured domain.
+  if (options.baseDomain) {
+    const host = req.headers['host'];
+    if (!host) {
+      return false;
+    }
+    const baseHost = host.split(':')[0]; // Remove port if present
+    const isValid = baseHost.endsWith(options.baseDomain);
+    if (!isValid) {
+      console.error(`Rejected request from invalid host: ${host}`);
+    }
+    return isValid;
+  }
+
+  return true;
 }
 
 module.exports = {

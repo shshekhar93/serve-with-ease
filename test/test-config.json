@@ -1,5 +1,5 @@
 {
     "basePath": "./test",
-    "routingStrategy": "subdomain",
+    "routingStrategy": "header",
     "baseDomain": "localhost.com"
 }

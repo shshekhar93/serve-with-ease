@@ -20,5 +20,5 @@ npx serve-with-ease path/to/dir
 - [X] Route requests to specific directories based on domain name
 - [ ] Route requests to specific directories based on configuration
 - [ ] List directories based on configurtion
-- [ ] Only serve from configured domain
+- [X] Only serve from configured domain
 - [ ] Return correct mime type based on magic header
