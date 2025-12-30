@@ -1,5 +1,9 @@
 {
     "basePath": "./test",
-    "routingStrategy": "header",
-    "baseDomain": "localhost.com"
+    "routingStrategy": "subdomain",
+    "baseDomain": "localhost.com",
+    "routeMap": {
+        "foo": "site1",
+        "bar": "site2"
+    }
 }

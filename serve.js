@@ -127,9 +127,10 @@ function resolveFilePath(req, options) {
 }
 
 function getSiteIdentifierFromRequest(req, options) {
+  let routeKey = '';
   if (options.routingStrategy === 'header') {
     const headerKey = options.routingHeaderKey || SiteIdentifierHeader;
-    return req.headers[headerKey.toLowerCase()] || '';
+    routeKey = req.headers[headerKey.toLowerCase()] || '';
   }
 
   if (options.routingStrategy === 'subdomain') {
@@ -142,10 +143,12 @@ function getSiteIdentifierFromRequest(req, options) {
       return '';
     }
     const subdomainPart = host.slice(0, baseDomainIndex - 1); // Remove the dot before base domain
-    return subdomainPart || '';
+    routeKey = subdomainPart;
   }
 
-  return '';
+  const siteIdentifier = (options.routeMap ? options.routeMap[routeKey] : routeKey);
+
+  return siteIdentifier ?? '';
 }
 
 function validateRequest(req, options) {
