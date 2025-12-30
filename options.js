@@ -8,6 +8,7 @@ const os = require('os');
  * @property {string} [routingHeaderKey] - The name of the header to use for routing (default is 'x-site-identifier').
  * @property {string} [baseDomain] - The base domain to use for routing, subdomains of this will be used as site identifiers (required if routingStrategy is 'subdomain').
  * @property {{[k: string]: string}} [routeMap] - A map of 'site identifier' to folder (relative to basepath). If not provided, 'site identifiers' map to folders of the same name.
+ * @property {boolean} [dirListing] - Whether to allow directory listing (default is false).
  */
 
 /**
@@ -35,6 +36,11 @@ function options() {
 
     if (config.basePath.endsWith('.')) {
       config.basePath = path.resolve(config.basePath);
+    }
+
+    if (config.routingStrategy === 'subdomain' && !config.baseDomain) {
+      console.error('Config file must specify a baseDomain when using subdomain routing strategy.');
+      process.exit(1);
     }
 
     return config;

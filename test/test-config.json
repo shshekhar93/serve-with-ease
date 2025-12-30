@@ -1,3 +1,5 @@
 {
-    "basePath": "./test"
+    "basePath": "./test",
+    "routingStrategy": "subdomain",
+    "baseDomain": "localhost.com"
 }

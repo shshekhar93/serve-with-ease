@@ -16,10 +16,9 @@ npx serve-with-ease path/to/dir
 ## Features
 - [X] Web server to serve static content
 - [X] Return correct mime type based on file extenstion
-- [ ] Route requests to specific directories based on special header value
-- [ ] Route requests to specific directories based on domain name
+- [X] Route requests to specific directories based on header value
+- [X] Route requests to specific directories based on domain name
 - [ ] Route requests to specific directories based on configuration
 - [ ] List directories based on configurtion
 - [ ] Only serve from configured domain
 - [ ] Return correct mime type based on magic header
-- [ ] Authorization?? _(This should likely remain an external concern)_
