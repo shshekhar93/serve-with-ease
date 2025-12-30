@@ -1,0 +1,31 @@
+#
+# .gitea/gitea-ci.yaml
+#
+
+name: Build, test & Publish
+run-name: serve-with-ease build for ${{gitea.sha}}
+on: [push]
+
+jobs:
+  publish:
+    runs-on: cth-ubuntu-latest
+    if: gitea.ref == 'refs/heads/main'
+    steps:
+      - uses: https://github.com/actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: https://github.com/docker/setup-buildx-action@v3
+        with:
+          buildkitd-config-inline: |
+            insecure-entitlements=["network.host", "security.insecure"]
+            [registry."${{vars.DOCKER_REGISTRY}}"]
+              http = true
+              insecure = true
+            [dns]
+              nameservers=["1.1.1.1"]
+      - name: Build and push Docker image
+        uses: https://github.com/docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: '${{vars.DOCKER_REGISTRY}}/serve-with-ease:${{gitea.sha}},${{vars.DOCKER_REGISTRY}}/serve-with-ease:latest'
