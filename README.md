@@ -22,3 +22,4 @@ npx serve-with-ease path/to/dir
 - [ ] List directories based on configurtion
 - [X] Only serve from configured domain
 - [ ] Return correct mime type based on magic header
+- [X] Deployable with docker
